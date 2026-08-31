@@ -85,7 +85,7 @@ jobs:
                   "id": 1,
                   "method": "initialize",
                   "params": {
-                      "protocolVersion": "2025-03-26",
+                      "protocolVersion": "2025-11-25",
                       "capabilities": {},
                       "clientInfo": {"name": "ci-smoke", "version": "0.1.0"},
                   },
