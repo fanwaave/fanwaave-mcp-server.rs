@@ -13,3 +13,8 @@
 .env
 .env.*
 !.env.example
+
+# Decrypted values and arbitrary dotenv files are never contract evidence.
+*.env
+**/*.env
+env/dec/
