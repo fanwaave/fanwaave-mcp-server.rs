@@ -55,3 +55,19 @@ check:
 
 run profile="dev":
     just env-run {{ profile }} cargo run --locked --release
+
+test-with-env profile="dev":
+    just env-run {{ profile }} cargo test --locked --all-targets
+
+decrypt profile="dev":
+    just env-decrypt {{ profile }}
+
+encrypt profile="dev":
+    just env-encrypt {{ profile }}
+
+env-policy:
+    @test -f .sops.yaml
+    @test -n "$(find env/enc -mindepth 1 -maxdepth 1 -type f -name '*.env.enc' -print -quit)"
+    @test -z "$(git ls-files 'env/dec/*.env' '.env' '.env.*')"
+    @for file in env/enc/*.env.enc; do sops filestatus --input-type dotenv "$file" | grep -q '"encrypted"[[:space:]]*:[[:space:]]*true'; done
+    @printf '%s\n' 'environment policy verified'

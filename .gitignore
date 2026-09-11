@@ -14,6 +14,11 @@
 .env.*
 !.env.example
 
+# Decrypted values and arbitrary dotenv files are never contract evidence.
+*.env
+**/*.env
+env/dec/
+
 # BEGIN ores-sops dotenv policy — see env/README.md
 .env
 .env.*
