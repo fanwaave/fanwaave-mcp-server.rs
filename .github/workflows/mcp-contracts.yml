@@ -1,0 +1,30 @@
+name: MCP peer contracts
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mcp-peer-contracts-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  conformance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4be7066ada62dd38de10e7b70166bc74ed198c30
+        with:
+          toolchain: 1.95.0
+      # Independent peer schemas and verified IR precede real server conformance.
+      # Keep the existing multi-transport and exact-host OAuth contract intact.
+      - uses: ORESoftware/org-mcp-server-template.rs/.github/actions/mcp-contracts@a1648e79ce7e8fcadbcc1a822a71d2c43b44a039
+        with:
+          binary: fanwaave-mcp-server
+          profile: fleet-v2
+      - name: Authored inputs must remain unchanged
+        run: git diff --exit-code
