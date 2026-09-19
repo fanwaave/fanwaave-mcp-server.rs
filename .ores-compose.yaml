@@ -1,10 +1,10 @@
 schema_version: ores.compose.v1
-project: fanwaave-mcp-server.rs
+project: fanwaave-mcp-server
 allow_lazy_start: false
 
 services:
-  fanwaave-mcp-server.rs:
-    name: fanwaave-mcp-server.rs
+  fanwaave-mcp-server:
+    name: fanwaave-mcp-server
     runtime: host
     build:
       - ["cargo", "build", "--bins"]
