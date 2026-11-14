@@ -67,7 +67,10 @@ mod tests {
                     operation_set.insert((*provider, *operation)),
                     "duplicate provider operation"
                 );
-                assert!(operation.starts_with("read_"), "write operation in read-only contract");
+                assert!(
+                    operation.starts_with("read_"),
+                    "write operation in read-only contract"
+                );
                 assert!(!operation.contains('*'), "wildcard operation");
             }
         }
